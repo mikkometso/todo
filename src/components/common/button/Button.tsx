@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { StyledButton } from './Button.styles'
 
 const Button: React.FC<{
-  children: any
+  children: ReactNode
   className?: string
   onClick?: () => void
 }> = (props) => {
