@@ -1,18 +1,25 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react'
+import React, { ChangeEvent, FormEvent } from 'react'
 import Button from '../common/button/Button'
 import PlusIcon from '../icons/PlusIcon'
 import { Form } from './TodoInput.styles'
 
-const TodoInput: React.FC = () => {
-  const [input, setInput] = useState<string>('')
+interface InputProps {
+  newTask: string
+  setNewTask: React.Dispatch<React.SetStateAction<string>>
+  addTaskHandler: () => void
+}
+
+const TodoInput: React.FC<InputProps> = (props) => {
+  const { newTask, setNewTask, addTaskHandler } = props
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value)
+    setNewTask(e.target.value)
   }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    console.log(input)
+    addTaskHandler()
   }
 
   return (
@@ -26,7 +33,7 @@ const TodoInput: React.FC = () => {
           onChange={handleChange}
           placeholder="Add new todo here"
           type="text"
-          value={input}
+          value={newTask}
         />
         <Button>
           <PlusIcon />

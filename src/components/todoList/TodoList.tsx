@@ -2,14 +2,27 @@ import React from 'react'
 import { StyledTodoList } from './TodoList.styles'
 import TodoItem from '../todoListItem/TodoItem'
 
-const TodoList: React.FC = () => {
+interface ListProps {
+  tasks: { id: string; task: string; done: boolean }[]
+  editTaskHandler: (id: string) => void
+  deleteTaskHandler: (id: string) => void
+}
+
+const TodoList: React.FC<ListProps> = (props) => {
+  const { tasks, editTaskHandler, deleteTaskHandler } = props
+
   return (
     <>
       TodoList:
       <StyledTodoList>
-        <TodoItem task={'foo'} />
-        <TodoItem task={'foo'} />
-        <TodoItem task={'foo'} />
+        {Object.values(tasks).map((item) => (
+          <TodoItem
+            key={item.id}
+            task={item}
+            editTaskHandler={editTaskHandler}
+            deleteTaskHandler={deleteTaskHandler}
+          />
+        ))}
       </StyledTodoList>
     </>
   )
