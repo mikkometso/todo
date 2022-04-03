@@ -13,7 +13,7 @@ const TodoList: React.FC<ListProps> = (props) => {
 
   return (
     <>
-      TodoList:
+      {tasks.length > 0 && <span>Task list:</span>}
       <StyledTodoList>
         {Object.values(tasks).map((item) => (
           <TodoItem
