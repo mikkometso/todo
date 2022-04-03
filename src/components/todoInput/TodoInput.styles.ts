@@ -9,20 +9,8 @@ export const Form = styled.form`
     display: flex;
   }
   .input {
+    padding-left: 1rem;
     border: 1px solid #000;
     border-radius: 8px;
-  }
-
-  .button {
-    display: flex;
-    padding: 0.5rem;
-    margin-left: 1rem;
-    background-color: transparent;
-    border: 1px solid #000;
-    border-radius: 20%;
-    cursor: pointer;
-    :hover {
-      background-color: #eee;
-    }
   }
 `

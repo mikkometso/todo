@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
-import PlusIcon from '../icons/plusIcon/PlusIcon'
+import Button from '../common/button/Button'
+import PlusIcon from '../icons/PlusIcon'
 import { Form } from './TodoInput.styles'
 
 const TodoInput: React.FC = () => {
@@ -27,9 +28,9 @@ const TodoInput: React.FC = () => {
           type="text"
           value={input}
         />
-        <button className="button">
+        <Button>
           <PlusIcon />
-        </button>
+        </Button>
       </div>
     </Form>
   )
