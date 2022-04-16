@@ -28,7 +28,7 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
           application_name: todo-app
           environment_name: Todoapp-env
-          existing_bucket_name: elasticbeanstalk:eu-north-1:441431622552
+          existing_bucket_name: elasticbeanstalk-eu-north-1-441431622552
           region: eu-north-1
           version_label: ${{ github.sha }}
           deployment_package: deploy.zip
