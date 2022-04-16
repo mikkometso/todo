@@ -15,6 +15,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Checkout source code
         uses: actions/checkout@v2
+      - run: docker build -t mikkometso/todo-app:latest -f Dockerfile.dev .
       - run: docker run -e CI=true mikkometso/todo-app:latest npm test
 
       - name: Generate deployment package
