@@ -5,21 +5,27 @@ on:
       - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Checkout source code
-        uses: actions/checkout@v2
-      - run: docker build -t mikkometso/todo-app:latest -f Dockerfile.dev .
-      - run: docker run -e CI=true mikkometso/todo-app:latest npm test
+        uses: actions/checkout@v3
 
       - name: Generate deployment package
-        run: zip -r deploy.zip . -x '*.git*'
+        run: zip -r deploy.zip * -x "**node_modules**"
+
+      - name: Get timestamp from current time
+        uses: gerred/actions/current-time@master
+        id: current-time
+
+      - name: Run string replace
+        uses: frabert/replace-string-action@v2.0
+        id: format-time
+        with:
+          pattern: '[:\.]+'
+          string: '${{ steps.current-time.outputs.time }}'
+          replace-with: '-'
+          flags: 'g'
 
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v20
@@ -27,8 +33,8 @@ jobs:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
           aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
           application_name: todo-app
-          environment_name: Todoapp-env
+          environment_name: Todoapp-env-2
           existing_bucket_name: elasticbeanstalk-eu-north-1-441431622552
           region: eu-north-1
-          version_label: ${{ github.sha }}
+          version_label: 'todo-app-deployment-${{ steps.format-time.outputs.replaced }}'
           deployment_package: deploy.zip
