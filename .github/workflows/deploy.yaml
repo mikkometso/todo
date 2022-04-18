@@ -11,6 +11,9 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v3
 
+      - name: Build the Docker image
+        run: docker build -t mikkometso/todo-app -f Dockerfile .
+
       - name: Generate deployment package
         run: zip -r deploy.zip * -x "**node_modules**"
 
